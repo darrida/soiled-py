@@ -6,10 +6,10 @@ router = Router()
 def get():
     pass
 
-@router.post("")
-def create():
-    pass
+# @router.post("")
+# def create():
+#     pass
 
-@router.put("")
-def update():
-    pass
+# @router.put("")
+# def update():
+#     pass
