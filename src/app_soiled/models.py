@@ -11,8 +11,8 @@ delete_relation = {
 }
 
 class Sensor(models.Model):
-    name = models.CharField(max_length=100)
-    mac_address = models.CharField(max_length=17)
+    name = models.CharField(max_length=100, null=True, blank=True, unique=True)
+    mac_address = models.CharField(max_length=17, unique=True)
     description = models.CharField(max_length=200, null=True, blank=True)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -24,7 +24,7 @@ class Sensor(models.Model):
         verbose_name_plural = "Sensors"
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else self.mac_address
     
 
 class Location(models.Model):

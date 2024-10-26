@@ -1,23 +1,17 @@
-from datetime import datetime
-
-from ninja import Router, Schema
+from ninja import ModelSchema, Router
 from ninja.pagination import paginate
 
 from ..models import Location
 
 router = Router()
 
-class LocationOut(Schema):
-    pk: int
-    name: str
-    description: str | None = None
-    active: bool
-    created_at: datetime
-    updated_at: datetime
-    updated_by: str | None = None
+class LocationSchema(ModelSchema):
+    class Meta:
+        model = Location
+        fields = ["id", "name", "description", "active", "created_at", "updated_at", "updated_by"]
 
 
-@router.get("", response={200: list[LocationOut], 204: None})
+@router.get("", response={200: list[LocationSchema], 204: None})
 @paginate
 def get_all(request):
     try:
@@ -26,20 +20,18 @@ def get_all(request):
         return 204, None
 
 
-@router.get("/name/{name}", response={200: LocationOut, 204: None})
+@router.get("/name/{name}", response={200: LocationSchema, 204: None})
 def get_by_name(request, name: str):
     try:
-        location = Location.objects.get(name=name)
-        return location
+        return Location.objects.get(name=name)
     except Location.DoesNotExist:
         return 204, None
 
 
-@router.get("/pk/{pk}", response={200: LocationOut, 204: None})
-def get_by_pk(request, pk: int):
+@router.get("/id/{id}", response={200: LocationSchema, 204: None})
+def get_by_id(request, id: int):
     try:
-        location = Location.objects.get(pk=pk)
-        return location
+        return Location.objects.get(id=id)
     except Location.DoesNotExist:
         return 204
 
