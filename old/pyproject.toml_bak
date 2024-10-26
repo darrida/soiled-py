@@ -8,21 +8,29 @@ description = "CLI utility to help deploy py-shinylive apps to hosted webservers
 readme = "README.md"
 
 dependencies = [
+    'fastapi',
     'loguru',
     'logfire[fastapi]',
     'pydantic > 2.0',
     'uvicorn',
-    "django>=5.1.2",
-    "django-ninja>=1.3.0",
 ]
 
 [project.optional-dependencies]
 tests = [
+  'fastapi',
   'pytest',
   'loguru',
   'httpx',
   'pytest',
 ]
+
+[project.scripts]
+shinylive_deploy = "shinylive_deploy.app:cli"
+shinylive-manage = "shinylive_deploy.app:cli"
+
+[project.urls]
+Homepage = "https://github.com/darrida/py-shinylive-deploy-webserver"
+Issues = "https://github.com/darrida/py-shinylive-deploy-webserver/issues"
 
 [build-system]
 requires = ["setuptools>=61.0"]
