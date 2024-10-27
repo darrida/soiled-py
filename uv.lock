@@ -252,8 +252,8 @@ wheels = [
 ]
 
 [package.optional-dependencies]
-fastapi = [
-    { name = "opentelemetry-instrumentation-fastapi" },
+django = [
+    { name = "opentelemetry-instrumentation-django" },
 ]
 
 [[package]]
@@ -348,35 +348,34 @@ wheels = [
 ]
 
 [[package]]
-name = "opentelemetry-instrumentation-asgi"
+name = "opentelemetry-instrumentation-django"
 version = "0.48b0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "asgiref" },
     { name = "opentelemetry-api" },
     { name = "opentelemetry-instrumentation" },
+    { name = "opentelemetry-instrumentation-wsgi" },
     { name = "opentelemetry-semantic-conventions" },
     { name = "opentelemetry-util-http" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/44/ac/fd3d40bab3234ec3f5c052a815100676baaae1832fa1067935f11e5c59c6/opentelemetry_instrumentation_asgi-0.48b0.tar.gz", hash = "sha256:04c32174b23c7fa72ddfe192dad874954968a6a924608079af9952964ecdf785", size = 23435 }
+sdist = { url = "https://files.pythonhosted.org/packages/0c/88/3d4ab7c9d68c3980ecbe1d4649f984006b9bd5e093f3a02a0978dcdb0286/opentelemetry_instrumentation_django-0.48b0.tar.gz", hash = "sha256:d31fca8bdf5a75e004a459f2eb3fcba707fbb0a39fc3d3c520c38265775cb9df", size = 23979 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/db/74/a0e0d38622856597dd8e630f2bd793760485eb165708e11b8be1696bbb5a/opentelemetry_instrumentation_asgi-0.48b0-py3-none-any.whl", hash = "sha256:ddb1b5fc800ae66e85a4e2eca4d9ecd66367a8c7b556169d9e7b57e10676e44d", size = 15958 },
+    { url = "https://files.pythonhosted.org/packages/70/46/671d2618b12bee9071064bc6f63d7df9d6870560c8aa67948378fee47e62/opentelemetry_instrumentation_django-0.48b0-py3-none-any.whl", hash = "sha256:e6742744ee1cfbfee8a6b57182a2071475531b79863411e1eb5f0d5b5322b7b4", size = 19204 },
 ]
 
 [[package]]
-name = "opentelemetry-instrumentation-fastapi"
+name = "opentelemetry-instrumentation-wsgi"
 version = "0.48b0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "opentelemetry-api" },
     { name = "opentelemetry-instrumentation" },
-    { name = "opentelemetry-instrumentation-asgi" },
     { name = "opentelemetry-semantic-conventions" },
     { name = "opentelemetry-util-http" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/58/20/43477da5850ef2cd3792715d442aecd051e885e0603b6ee5783b2104ba8f/opentelemetry_instrumentation_fastapi-0.48b0.tar.gz", hash = "sha256:21a72563ea412c0b535815aeed75fc580240f1f02ebc72381cfab672648637a2", size = 18497 }
+sdist = { url = "https://files.pythonhosted.org/packages/de/a5/f45cdfba18f22aefd2378eac8c07c1f8c9656d6bf7ce315ced48c67f3437/opentelemetry_instrumentation_wsgi-0.48b0.tar.gz", hash = "sha256:1a1e752367b0df4397e0b835839225ef5c2c3c053743a261551af13434fc4d51", size = 17974 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/50/745ab075a3041b7a5f29a579d2c28eaad54f64b4589d8f9fd364c62cf0f3/opentelemetry_instrumentation_fastapi-0.48b0-py3-none-any.whl", hash = "sha256:afeb820a59e139d3e5d96619600f11ce0187658b8ae9e3480857dd790bc024f2", size = 11777 },
+    { url = "https://files.pythonhosted.org/packages/fb/87/fa420007e0ba7e8cd43799ab204717ab515f000236fa2726a6be3299efdd/opentelemetry_instrumentation_wsgi-0.48b0-py3-none-any.whl", hash = "sha256:c6051124d741972090fe94b2fa302555e1e2a22e9cdda32dd39ed49a5b34e0c6", size = 13691 },
 ]
 
 [[package]]
@@ -594,7 +593,7 @@ source = { editable = "." }
 dependencies = [
     { name = "django" },
     { name = "django-ninja" },
-    { name = "logfire", extra = ["fastapi"] },
+    { name = "logfire", extra = ["django"] },
     { name = "loguru" },
     { name = "pydantic" },
     { name = "uvicorn" },
@@ -612,7 +611,7 @@ requires-dist = [
     { name = "django", specifier = ">=5.1.2" },
     { name = "django-ninja", specifier = ">=1.3.0" },
     { name = "httpx", marker = "extra == 'tests'" },
-    { name = "logfire", extras = ["fastapi"] },
+    { name = "logfire", extras = ["django"] },
     { name = "loguru" },
     { name = "loguru", marker = "extra == 'tests'" },
     { name = "pydantic", specifier = ">2.0" },

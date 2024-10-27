@@ -9,7 +9,7 @@ readme = "README.md"
 
 dependencies = [
     'loguru',
-    'logfire[fastapi]',
+    'logfire[django]',
     'pydantic > 2.0',
     'uvicorn',
     "django>=5.1.2",
