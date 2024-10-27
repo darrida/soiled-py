@@ -6,6 +6,6 @@ api = NinjaAPI()
 
 api.add_router("/soiled/", soiled_router, tags=["Soiled"])
 
-@api.get("/hello")
+@api.get("/status")
 def hello(request):
-    return "Hello world"
+    return {"alive": True}

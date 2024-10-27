@@ -1,8 +1,5 @@
-from datetime import datetime
-
 from django.http import HttpRequest
-from ninja import ModelSchema, PatchDict, Router, Schema
-from ninja.pagination import paginate
+from ninja import ModelSchema, Router
 
 from ..models import Sensor
 
@@ -15,7 +12,7 @@ class SensorSchema(ModelSchema):
 
 
 @router.get("/mac_address/{mac_address}", response={200: SensorSchema, 204: None})
-def get_by_id(request, mac_address: str):
+def get_by_mac_address(request, mac_address: str):
     try:
         return Sensor.objects.get(mac_address=mac_address)
     except Sensor.DoesNotExist:
@@ -27,27 +24,3 @@ def create(request: HttpRequest, payload: SensorSchema):
     sensor.updated_by = request.user.username
     sensor.save()
     return sensor
-
-
-# @router.get("", response={200: list[SensorSchema], 204: None})
-# @paginate
-# def get(request):
-#     try:
-#         return Sensor.objects.all()
-#     except Sensor.DoesNotExist:
-#         return 204, None
-
-# @router.get("/name/{name}", response={200: SensorSchema, 204: None})
-# def get_by_name(request, name: str):
-#     try:
-#         return Sensor.objects.get(name=name)
-#     except Sensor.DoesNotExist:
-#         return 204, None
-
-# @router.patch("/{id}")
-# def update(request: HttpRequest, id: int, payload: PatchDict[SensorSchema]):
-#     obj = Sensor.objects.get(id=id)
-#     obj.updated_by = request.user.username
-#     for attr, value in payload.items():
-#         setattr(obj, attr, value)
-#     obj.save()
