@@ -14,26 +14,10 @@ class SensorSchema(ModelSchema):
         fields = ["id", "name", "mac_address", "description", "active", "created_at", "updated_at"]
 
 
-@router.get("", response={200: list[SensorSchema], 204: None})
-@paginate
-def get():
+@router.get("/mac_address/{mac_address}", response={200: SensorSchema, 204: None})
+def get_by_id(request, mac_address: str):
     try:
-        return Sensor.objects.all()
-    except Sensor.DoesNotExist:
-        return 204, None
-
-@router.get("/name/{name}", response={200: SensorSchema, 204: None})
-def get_by_name(request, name: str):
-    try:
-        return Sensor.objects.get(name=name)
-    except Sensor.DoesNotExist:
-        return 204, None
-
-
-@router.get("/id/{id}", response={200: SensorSchema, 204: None})
-def get_by_id(request, id: int):
-    try:
-        return Sensor.objects.get(id=id)
+        return Sensor.objects.get(mac_address=mac_address)
     except Sensor.DoesNotExist:
         return 204
 
@@ -44,10 +28,26 @@ def create(request: HttpRequest, payload: SensorSchema):
     sensor.save()
     return sensor
 
-@router.patch("/{id}")
-def update(request: HttpRequest, id: int, payload: PatchDict[SensorSchema]):
-    obj = Sensor.objects.get(id=id)
-    obj.updated_by = request.user.username
-    for attr, value in payload.items():
-        setattr(obj, attr, value)
-    obj.save()
+
+# @router.get("", response={200: list[SensorSchema], 204: None})
+# @paginate
+# def get(request):
+#     try:
+#         return Sensor.objects.all()
+#     except Sensor.DoesNotExist:
+#         return 204, None
+
+# @router.get("/name/{name}", response={200: SensorSchema, 204: None})
+# def get_by_name(request, name: str):
+#     try:
+#         return Sensor.objects.get(name=name)
+#     except Sensor.DoesNotExist:
+#         return 204, None
+
+# @router.patch("/{id}")
+# def update(request: HttpRequest, id: int, payload: PatchDict[SensorSchema]):
+#     obj = Sensor.objects.get(id=id)
+#     obj.updated_by = request.user.username
+#     for attr, value in payload.items():
+#         setattr(obj, attr, value)
+#     obj.save()

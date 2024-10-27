@@ -73,6 +73,7 @@ class Measurement(models.Model):
     class Meta:
         verbose_name = "Measurement"
         verbose_name_plural = "Measurements"
+        get_latest_by = "created_at"
 
     def __str__(self):
         return f"{self.created_at}"
