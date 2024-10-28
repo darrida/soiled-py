@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AppSoiledConfig(AppConfig):
+class AppTrapsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "app_soiled"
+    name = "app_traps"

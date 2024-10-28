@@ -1,7 +1,7 @@
 {% for plant in plants %}
 <div class="stat">
     <div class="stat-title">{{ plant.name }}</div>
-    <div class="stat-value">{{ plant.moisture_percent }}%</div>
+    <div class="stat-value {{ plant.text_color }}">{{ plant.moisture_percent }}%</div>
     <div class="stat-desc">{{ plant.last_update }}</div>
 </div>
 {% endfor %}

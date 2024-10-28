@@ -1,0 +1,16 @@
+
+line-length = 120
+extend-exclude = [".venv"]
+
+[lint]
+extend-select = ["S", "I", "C4"]  # bandit (S), isort (I), comprehensions (C4), type-checking (TCH)
+fixable = ["F401", "I001"]
+
+[lint.isort]
+extra-standard-library = []
+# known-first-party = ["src", "app", "apps", "webapps", "_wcc_*", "app_*"]  # _wcc_, app_ are for shinylive apps`
+known-first-party = ["models", "tracking", "tasks", "support", "subflows", "app_", "svc_*", "backend_*", "background_*"]
+known-third-party = ["wcclibrary"]
+known-local-folder = []
+# relative-imports-order = "closest-to-furthest"
+# required-imports = ["from __future__ import annotations"]

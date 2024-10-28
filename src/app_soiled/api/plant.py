@@ -4,6 +4,7 @@ from ..models import Plant
 
 router = Router()
 
+
 class PlantSchema(ModelSchema):
     class Meta:
         model = Plant

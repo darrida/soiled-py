@@ -5,77 +5,85 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Location',
+            name="Location",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.CharField(blank=True, max_length=200, null=True)),
-                ('active', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('updated_by', models.CharField(blank=True, max_length=30, null=True)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=100)),
+                ("description", models.CharField(blank=True, max_length=200, null=True)),
+                ("active", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("updated_by", models.CharField(blank=True, max_length=30, null=True)),
             ],
             options={
-                'verbose_name': 'Location',
-                'verbose_name_plural': 'Locations',
+                "verbose_name": "Location",
+                "verbose_name_plural": "Locations",
             },
         ),
         migrations.CreateModel(
-            name='Sensor',
+            name="Sensor",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('mac_address', models.CharField(max_length=17)),
-                ('description', models.CharField(blank=True, max_length=200, null=True)),
-                ('active', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('updated_by', models.CharField(blank=True, max_length=30, null=True)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=100)),
+                ("mac_address", models.CharField(max_length=17)),
+                ("description", models.CharField(blank=True, max_length=200, null=True)),
+                ("active", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("updated_by", models.CharField(blank=True, max_length=30, null=True)),
             ],
             options={
-                'verbose_name': 'Sensor',
-                'verbose_name_plural': 'Sensors',
+                "verbose_name": "Sensor",
+                "verbose_name_plural": "Sensors",
             },
         ),
         migrations.CreateModel(
-            name='Plant',
+            name="Plant",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.CharField(blank=True, max_length=200, null=True)),
-                ('active', models.BooleanField(default=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('updated_by', models.CharField(blank=True, max_length=30, null=True)),
-                ('location', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='app_soiled.location')),
-                ('sensor', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='app_soiled.sensor')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=100)),
+                ("description", models.CharField(blank=True, max_length=200, null=True)),
+                ("active", models.BooleanField(default=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("updated_by", models.CharField(blank=True, max_length=30, null=True)),
+                (
+                    "location",
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to="app_soiled.location"
+                    ),
+                ),
+                (
+                    "sensor",
+                    models.ForeignKey(
+                        blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to="app_soiled.sensor"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Plant',
-                'verbose_name_plural': 'Plants',
+                "verbose_name": "Plant",
+                "verbose_name_plural": "Plants",
             },
         ),
         migrations.CreateModel(
-            name='Measurement',
+            name="Measurement",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('moisure_percent', models.IntegerField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('updated_by', models.CharField(blank=True, max_length=30, null=True)),
-                ('plant', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='app_soiled.plant')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("moisure_percent", models.IntegerField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("updated_by", models.CharField(blank=True, max_length=30, null=True)),
+                ("plant", models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to="app_soiled.plant")),
             ],
             options={
-                'verbose_name': 'Measurement',
-                'verbose_name_plural': 'Measurements',
+                "verbose_name": "Measurement",
+                "verbose_name_plural": "Measurements",
             },
         ),
     ]

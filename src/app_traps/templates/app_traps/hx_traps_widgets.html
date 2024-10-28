@@ -1,0 +1,8 @@
+
+{% for trap in traps %}
+<div class="stat">
+    <div class="stat-title">{{ trap.name }}</div>
+    <div class="stat-value {{ trap.text_color }}">{{ trap.status }}</div>
+    <div class="stat-desc">{{ trap.last_update }}</div>
+</div>
+{% endfor %}

@@ -1,0 +1,25 @@
+
+    <div class="card-body grow-0">
+        <h2 class="card-title">
+            <a class="link-hover link">Plant Moisture Levels</a>
+        </h2>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="table table-zebra">
+            <tbody>
+                {% for plant in plants %}
+                <tr>
+                    <td>{{ plant.name }}</td>
+                    <td>
+                        <svg
+                            data-src="https://unpkg.com/heroicons/20/solid/arrow-{{ plant.arrow_direction }}.svg"
+                            class="inline-block h-5 w-5 {{ plant.arrow_color }}">
+                        </svg>
+                        <span class="{{ plant.text_color }}">{{ plant.moisture_percent }}%</span>
+                    </td>
+                    <td>{{ plant.last_update }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>

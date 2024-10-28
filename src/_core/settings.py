@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bg45soje9%01^7d08n918u)-mnn5&(tv(+3wa67k)wvqr(7!_1'  # noqa: S105
+SECRET_KEY = "django-insecure-bg45soje9%01^7d08n918u)-mnn5&(tv(+3wa67k)wvqr(7!_1"  # noqa: S105
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,40 +36,42 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # UNOFFICIAL THIRD PARTY
-    'social_django',
-    'django_htmx',
+    "social_django",
+    "django_htmx",
+    "ninja",
     # BUILT-IN
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     # local apps
     "app_soiled.apps.AppSoiledConfig",
+    "app_traps.apps.AppTrapsConfig",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
-    'social_django.middleware.SocialAuthExceptionMiddleware',
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
-ROOT_URLCONF = '_core.urls'
+ROOT_URLCONF = "_core.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "_core" / "templates"],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
@@ -81,14 +83,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = '_core.wsgi.application'
+WSGI_APPLICATION = "_core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "NAME": BASE_DIR / "db.sqlite3",
         "OPTIONS": {
             "transaction_mode": "IMMEDIATE",
             "timeout": 5,  # seconds
@@ -126,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "social_core.backends.github.GithubOAuth2",
-    'social_core.backends.facebook.FacebookOAuth2',
+    "social_core.backends.facebook.FacebookOAuth2",
 ]
 
 SOCIAL_AUTH_GITHUB_KEY = github_key
@@ -134,7 +136,7 @@ SOCIAL_AUTH_GITHUB_SECRET = github_secret
 
 SOCIAL_AUTH_FACEBOOK_KEY = facebook_key
 SOCIAL_AUTH_FACEBOOK_SECRET = facebook_secret
-SOCIAL_AUTH_FACEBOOK_APP_NAMESPACE = ''
+SOCIAL_AUTH_FACEBOOK_APP_NAMESPACE = ""
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
@@ -142,9 +144,9 @@ LOGOUT_REDIRECT_URL = "/"
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -154,7 +156,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 STATICFILES_DIRS = (
     BASE_DIR / "_core" / "static",
     BASE_DIR / "_core" / "static" / "img",
@@ -166,7 +168,7 @@ STATIC_ROOT = BASE_DIR / "assets"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 CACHES = {

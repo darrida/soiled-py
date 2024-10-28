@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('app_soiled', '0002_rename_moisure_percent_measurement_moisture_percent'),
+        ("app_soiled", "0002_rename_moisure_percent_measurement_moisture_percent"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sensor',
-            name='name',
+            model_name="sensor",
+            name="name",
             field=models.CharField(blank=True, max_length=100, null=True, unique=True),
         ),
     ]

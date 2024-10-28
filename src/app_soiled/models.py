@@ -1,14 +1,11 @@
 from django.db import models
 
-null_blank = {
-    "on_delete": models.SET_NULL,
-    "blank": True,
-    "null": True
-}
+null_blank = {"on_delete": models.SET_NULL, "blank": True, "null": True}
 
 delete_relation = {
     "on_delete": models.SET_NULL,
 }
+
 
 class Sensor(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True, unique=True)
@@ -25,7 +22,7 @@ class Sensor(models.Model):
 
     def __str__(self):
         return self.name if self.name else self.mac_address
-    
+
 
 class Location(models.Model):
     name = models.CharField(max_length=100)
@@ -60,7 +57,7 @@ class Plant(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class Measurement(models.Model):
     moisture_percent = models.IntegerField()
