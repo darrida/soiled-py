@@ -36,15 +36,15 @@
 					<div class="grow">
 						<h1 class="lg:text-2xl lg:font-light">Dashboard</h1>
 					</div>
-					<div>
+					{% comment %} <div>
 						<input
 							type="text"
 							placeholder="Search"
 							class="input input-sm rounded-full max-sm:w-24" />
-					</div>
+					</div> {% endcomment %}
 					<!-- dropdown -->
                      {% include "dark_mode_toggle.html" %}
-					<div class="dropdown dropdown-end z-10">
+					{% comment %} <div class="dropdown dropdown-end z-10">
 						<div tabindex="0" class="btn btn-circle btn-ghost">
 							<div class="indicator">
 								<span class="badge indicator-item badge-error badge-xs"></span>
@@ -111,10 +111,10 @@
 								</a>
 							</li>
 						</ul>
-					</div>
+					</div> {% endcomment %}
 					<!-- /dropdown -->
 					<!-- dropdown -->
-					<div class="dropdown-end dropdown z-10">
+					{% comment %} <div class="dropdown-end dropdown z-10">
 						<div tabindex="0" class="avatar btn btn-circle btn-ghost">
 							<div class="w-10 rounded-full">
 								<img src="https://picsum.photos/80/80?5" />
@@ -140,7 +140,7 @@
                                 </form>
                             </li>
 						</ul>
-					</div>
+					</div> {% endcomment %}
 					<!-- /dropdown -->
 				</header>
 				<!-- /header -->
@@ -268,7 +268,7 @@
 			</div>
 		</main>
 		<!-- /content -->
-		<aside class="drawer-side z-10">
+		{% comment %} <aside class="drawer-side z-10">
 			<label for="my-drawer" class="drawer-overlay"></label>
 			<!-- sidebar menu -->
 			<nav class="flex min-h-screen w-72 flex-col gap-2 overflow-y-auto bg-base-100 px-6 py-10">
@@ -396,7 +396,7 @@
 				</ul>
 			</nav>
 			<!-- /sidebar menu -->
-		</aside>
+		</aside> {% endcomment %}
 	</body>
 	<!-- /drawer -->
 </html>
