@@ -1,0 +1,49 @@
+<nav class="navbar justify-center bg-base-300">
+    <ul class="menu menu-horizontal flex-nowrap overflow-x-auto">
+        <li>
+            <a>
+                <i class="fa-solid fa-fw fa-home"></i>
+                Home
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="fa-solid fa-fw fa-fire"></i>
+                Features
+            </a>
+        </li>
+        <li>
+            <a class="active">
+                <i class="fa-solid fa-fw fa-tags"></i>
+                Pricing
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="fa-solid fa-fw fa-blog"></i>
+                Blog
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="fa-solid fa-fw fa-address-book"></i>
+                Contact
+            </a>
+        </li>
+        <li>
+            {% comment %} <form method="post" action="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> {% endcomment %}
+            <form method="post" action="{% url 'logout' %}" role="menuitem" tabindex="-1" class="bg-secondary text-secondary-content">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    </ul>
+    <ul class="menu menu-horizontal justify-end flex-nowrap overflow-x-auto">
+        <li>
+            <form method="post" action="{% url 'logout' %}" role="menuitem" tabindex="-1" class="bg-secondary text-secondary-content">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    </ul>
+</nav>

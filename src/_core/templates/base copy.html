@@ -1,0 +1,38 @@
+{% load static %}
+{% load django_htmx %}
+
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Backpacking</title>
+            <script src="{% static 'js/htmx.min.js' %}" defer></script>
+            <script src="{% static 'js/hyperscript.js' %}" defer></script>
+            {% comment %} <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" /> {% endcomment %}
+            {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+            <link rel="stylesheet" type="text/css" href="{% static "css/daisyui4.12.10.full.min.css" %}" />
+            <link rel="stylesheet" type="text/css" href="{% static "css/tailwind.output.css" %}" />
+            {% django_htmx_script %}
+        </head>
+    </head>
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+        {% include "header.html" %}
+        <div class="container mx-auto">
+            <main>
+            {% block content %}
+                {% if messages %}
+                <ul class="messages bg-gray-300">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                    </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            {% endblock content %}
+            </main>
+        </div>
+    </body>
+</html>

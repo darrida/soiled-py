@@ -1,0 +1,7 @@
+<div class="z-50 toast toast-top toast-center">
+    {% for key, value in form.errors.items %}
+        <div _="init wait 4s transition opacity to 0 then remove me" class="alert alert-warning" role="alert">
+            <span>"{{ key }}":{{ value }}</span>
+        </div>
+    {% endfor %}
+</div>

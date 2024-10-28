@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+Hello, {{ user.username|default:'Guest' }}!
+    {% comment %} {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit">Login</button>
+        </form>
+    {% endif %} {% endcomment %}
+<div class="flex flex-wrap">
+    <div class="basis-1/4 border-2 rounded-md m-1">
+        top1</div>
+    <div class="basis-1/4 hover:basis-1/2 border-2 rounded-md m-1">
+        top2</div>
+    <div class="basis-1/2 border-2 rounded-md m-1">
+        top3</div>
+</div>
+<hr>
+<div class="grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
+    <div class="border-2 rounded-md m-2">1</div>
+    <div class="border-2 rounded-md m-2">2</div>
+    <div class="border-2 rounded-md m-2">3</div>
+</div>
+{% endblock %}

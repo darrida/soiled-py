@@ -1,0 +1,12 @@
+<div class="z-40 toast toast-top toast-center">
+    {% for toast in toasts %}
+        <div 
+            id="toast-{{ forloop.counter }}" 
+            class="alert {{ toast.tags }} alert-dismissible fade show" 
+            role="alert">
+            {{ message }} {{ forloop.counter }}
+            <button _="on click remove #toast-{{ forloop.counter }}" type="button" class="btn btn-sm btn-neutral" aria-label="Close">Close
+            </button>
+        </div>
+    {% endfor %}
+</div>

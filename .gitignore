@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+github_creds.py
+cache/
 
 # C extensions
 *.so
