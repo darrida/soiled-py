@@ -1,6 +1,3 @@
-# from abc import abstractmethod
-
-# from django.views.decorators.csrf import csrf_exempt
 from ninja import NinjaAPI
 from ninja.security import HttpBearer
 
@@ -16,7 +13,6 @@ class AuthBearer(HttpBearer):
 api = NinjaAPI(auth=[AuthBearer()], csrf=False)
 
 api.add_router("/soiled/", soiled_router, tags=["Soiled"])
-# api.add_router("/traps/", soiled_router, tags=["Traps"])
 
 
 @api.get("/status")

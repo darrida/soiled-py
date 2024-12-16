@@ -1,5 +1,6 @@
 import asyncio
 
+import onepassword
 from django.conf import settings
 from onepassword.client import Client
 from pydantic import SecretStr
@@ -10,9 +11,17 @@ async def onepass_client() -> Client:
     return await Client.authenticate(auth=settings.ONEPASS_TOKEN.get_secret_value(), integration_name="soiled-py-integration", integration_version="v1.0.0")
 
 
+class OnePasswordFieldNotFound(Exception):
+    pass
+
+
+class OnePasswordItemNotFound(Exception):
+    pass
+
+
 class secret:
     @staticmethod
-    def get(item: str, field: str, section: str = None, vault: str = None) -> SecretStr:
+    def get(item: str, field: str, section: str = None, vault: str = "project-secrets") -> SecretStr:
         return asyncio.run(secret.aget(item, field, section, vault))
     
     @staticmethod
@@ -22,22 +31,14 @@ class secret:
             uri = f"op://{vault}/{item}/{section}/{field}"
         else:
             uri = f"op://{vault}/{item}/{field}"
-        return SecretStr(secret_value=await client.secrets.resolve(uri))
-    
+        try:
+            return SecretStr(secret_value=await client.secrets.resolve(uri))
+        except onepassword.lib.aarch64.op_uniffi_core.Error.Error as e:
+            if "specified field cannot be found within the item" in str(e):
+                raise OnePasswordFieldNotFound(f"Field `{field}` not found for {uri} (op://<VAULT>/<ITEM>/<FIELD>)")
+            elif "no item matched the secret reference query" in str(e):
+                raise OnePasswordItemNotFound(f"Item `{item}` not found for {uri} (op://<VAULT>/<ITEM>/<FIELD>)")
+            else:
+                raise onepassword.lib.aarch64.op_uniffi_core.Error.Error(e) from e
 
-class value:
-    @staticmethod
-    def get(item: str, field: str, section: str = None, vault: str = None) -> str:
-        return asyncio.run(secret.aget(item, field, section, vault))
-    
-    @staticmethod
-    async def aget(item: str, field: str, section: str = None, vault: str = "project-secrets") -> str:
-        if field == "password":
-            raise ValueError("`password` field must be retrieved using `secret.get`")
-        client = await onepass_client()
-        if section:
-            uri = f"op://{vault}/{item}/{section}/{field}"
-        else:
-            uri = f"op://{vault}/{item}/{field}"
-        return await client.secrets.resolve(uri)
     
