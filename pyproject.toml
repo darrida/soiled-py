@@ -10,7 +10,7 @@ requires-python = ">= 3.12"
 
 dependencies = [
     'loguru',
-    'logfire[django]',
+    'logfire[django,asgi] > 2.0',
     'pydantic > 2.0',
     'uvicorn',
     "django>=5.1.2",
@@ -18,7 +18,13 @@ dependencies = [
     "social-auth-app-django>=5.4.2",
     "django-htmx>=1.21.0",
     "diskcache>=5.6.3",
-    "prefect>=3.0.11",
+    "prefect>=3.1.0",
+    "channels[daphne]>=4.1.0",
+    "daphne>=4.1.2",
+    "django-q2>=1.7.4",
+    "django-tasks>=0.5.0",
+    "django-unfold>=0.41.0",
+    "onepassword-sdk>=0.1.5",
 ]
 
 [project.optional-dependencies]

@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 github_creds.py
 cache/
+*.sqlite3-*
+*.db
+*.db-
+.logfire/
 
 # C extensions
 *.so

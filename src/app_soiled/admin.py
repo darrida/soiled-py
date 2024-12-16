@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+# from django.admin import ModelAdmin
 from .models import Location, Measurement, Plant, Sensor
 
 

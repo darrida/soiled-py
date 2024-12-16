@@ -3,8 +3,9 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from loguru import logger
-from prefect.blocks.system import Secret
 from zoneinfo import ZoneInfo
+
+from _core.onepass import secret, value
 
 from .logic.victor_mouse_trap import VictorApi, VictorAsyncClient
 from .logic.victor_mouse_trap._models import Trap
@@ -12,15 +13,14 @@ from .logic.victor_mouse_trap._models import Trap
 
 @login_required
 async def get_traps_status(request):
-    username: Secret = await Secret.load("victor-username")
-    password: Secret = await Secret.load("victor-password")
+    username = await value.aget(item="victor", field="username")
+    password = await secret.aget(item="victor", field="password")
 
-    async with VictorAsyncClient(username.get(), password.get()) as client:
+    async with VictorAsyncClient(username, password.get_secret_value()) as client:
         api = VictorApi(client)
         traps: list[Trap] = await api.get_traps()
 
     data_l = []
-    # print(traps)
     for trap in traps:
         last_date = local_time(trap.trapstatistics.last_kill_date)
         text_color = "text-success" if trap.trapstatistics.kills_present == 0 else "text-error"
