@@ -12,7 +12,7 @@ class AuthBearer(HttpBearer):
 
 api = NinjaAPI(auth=[AuthBearer()], csrf=False)
 
-api.add_router("/soiled/", soiled_router, tags=["Soiled"])
+api.add_router("soiled/", soiled_router, tags=["Soiled"])
 
 
 @api.get("/status")

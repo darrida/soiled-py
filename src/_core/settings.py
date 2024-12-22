@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "social_django",
     "django_htmx",
     "ninja",
+    'waffle',
     # OFFICIAL THIRD PARTY
     "daphne",
     # BUILT-IN
@@ -65,6 +66,8 @@ INSTALLED_APPS = [
     # local apps
     "app_soiled.apps.AppSoiledConfig",
     "app_traps.apps.AppTrapsConfig",
+    # backends
+    "backend_feature_flags.apps.BackendFeatureFlagsConfig",
 ]
 
 MIDDLEWARE = [
@@ -77,6 +80,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
+    'waffle.middleware.WaffleMiddleware',
 ]
 
 ROOT_URLCONF = "_core.urls"
@@ -192,7 +196,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Chicago"
 
 USE_I18N = True
 
