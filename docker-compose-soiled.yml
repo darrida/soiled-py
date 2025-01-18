@@ -1,0 +1,56 @@
+secrets:
+  django_secret_key:
+    file: ./_local_swarm_secrets/django_secret_key
+
+services:
+  app:
+    image: ghcr.io/darrida/soiled-py:2025.01.18
+    command: 
+      - bash
+      - /home/nonroot/service_start.sh
+    environment:
+      - DJANGO_SECRET_KEY=/run/secrets/django_secret_key
+
+      - HOST=0.0.0.0
+      - PORT=6010
+    networks:
+      - traefik
+    secrets:
+      - django_secret_key
+    volumes:
+      - /Users/ben/soiled-storage:/home/nonroot/soiled-storage
+      - /Users/ben/soiled-storage/testing:/home/nonroot/soiled-storage/testing
+    deploy:
+      labels:
+        - traefik.enable=true
+
+        # - traefik.http.routers.reg.service=reg
+        # - traefik.http.services.reg.loadbalancer.server.port=6010
+        # - traefik.http.routers.reg.rule=Host(`127.0.0.1`) && PathPrefix("/admin/")
+        # # - traefik.http.routers.reg.rule=Host(`127.0.0.1`) && PathPrefix("/")
+        # - traefik.http.routers.reg.tls=true
+        # - traefik.http.routers.api.entrypoints=websecure
+
+        - traefik.http.routers.api.service=api
+        - traefik.http.services.api.loadbalancer.server.port=6010
+        - traefik.http.routers.api.rule=Host(`127.0.0.1`) && PathPrefix("/api")
+        - traefik.http.routers.api.tls=true
+        - traefik.http.routers.api.entrypoints=websecure
+
+        - traefik.http.routers.apps.service=apps
+        - traefik.http.services.apps.loadbalancer.server.port=6010
+        - traefik.http.routers.apps.rule=Host(`127.0.0.1`) && PathPrefix("/admin")
+        - traefik.http.routers.apps.tls=true
+        - traefik.http.routers.apps.entrypoints=websecure
+
+        - traefik.http.routers.static.service=static
+        - traefik.http.services.static.loadbalancer.server.port=6010
+        - traefik.http.routers.static.rule=Host(`127.0.0.1`) && PathPrefix("/static")
+        - traefik.http.routers.static.tls=true
+        - traefik.http.routers.static.entrypoints=websecure
+      replicas: 1
+
+networks:
+  traefik:
+    external:
+      name: traefik-proxy

@@ -19,7 +19,7 @@ from pydantic import SecretStr
 from .github_creds import facebook_key, facebook_secret, github_key, github_secret
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,7 +33,9 @@ ASGI_APPLICATION = "_core.asgi.application"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "https://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://localhost:8000", "https://localhost", "https://127.0.0.1", "http://127.0.0.1"]
+SESSION_COOKIE_SECURE = False
 
 
 # Application definition
@@ -88,7 +90,7 @@ ROOT_URLCONF = "_core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "_core" / "templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -155,7 +157,7 @@ DATABASES = {
     }
 }
 
-NINJA_PAGINATION_PER_PAGE = 500
+# NINJA_PAGINATION_PER_PAGE = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -202,18 +204,21 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+# ROOT_URLCONF = "_core.urls"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = (
-    BASE_DIR / "_core" / "static",
-    BASE_DIR / "_core" / "static" / "img",
-    BASE_DIR / "_core" / "static" / "css",
-    BASE_DIR / "_core" / "static" / "js",
-)
-STATIC_ROOT = BASE_DIR / "assets"
+# STATICFILES_DIRS = (
+#     # BASE_DIR / "_core" / "static",
+#     BASE_DIR / "_core" / "static" / "img",
+#     BASE_DIR / "_core" / "static" / "css",
+#     BASE_DIR / "_core" / "static" / "js",
+# )
+# STATIC_ROOT = BASE_DIR  / "static"
+STATICFILES_DIRS = (BASE_DIR / "static",)
+STATIC_ROOT = (BASE_DIR / "assets").resolve()
+print(STATIC_ROOT)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -224,7 +229,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "diskcache.DjangoCache",
-        "LOCATION": BASE_DIR / "_core" / "local-storage" / "cache",
+        "LOCATION": BASE_DIR / "soiled-storage" / "cache",
         "TIMEOUT": 1800,
         # ^-- Django setting for default timeout of each key.
         "SHARDS": 8,
