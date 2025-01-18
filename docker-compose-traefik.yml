@@ -24,7 +24,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./_local_traefik_config/traefik.toml:/etc/traefik/traefik.toml:ro
-      - ./_local_traefik_config:/configuration
+      - /Users/ben/traefik:/configuration
     deploy:
       labels:
         - traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)
