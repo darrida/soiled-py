@@ -8,6 +8,8 @@ cache/
 *.db
 *.db-
 .logfire/
+_local_*
+django_secret_key
 
 # C extensions
 *.so
@@ -17,7 +19,7 @@ cache/
 build/
 develop-eggs/
 dist/
-downloads/
+downloads/f
 eggs/
 .eggs/
 lib/
