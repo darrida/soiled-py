@@ -16,11 +16,10 @@ from pathlib import Path
 import logfire
 from pydantic import SecretStr
 
-from .github_creds import facebook_key, facebook_secret, github_key, github_secret
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
+PERSISTENT_STORAGE = Path().home() / "soiled-storage"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -37,18 +36,8 @@ ALLOWED_HOSTS = ["127.0.0.1", "https://127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = ["https://localhost:8000", "https://localhost", "https://127.0.0.1", "http://127.0.0.1"]
 SESSION_COOKIE_SECURE = False
 
-
 # Application definition
-
 INSTALLED_APPS = [
-    # UNFOLD ADMIN CHANGES
-    # "unfold",  # before django.contrib.admin
-    # "unfold.contrib.filters",  # optional, if special filters are needed
-    # "unfold.contrib.forms",  # optional, if special form elements are needed
-    # "unfold.contrib.inlines",  # optional, if special inlines are needed
-    # "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    # "unfold.contrib.guardian",  # optional, if django-guardian package is used
-    # "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     # UNOFFICIAL THIRD PARTY
     "django_tasks",
     "django_tasks.backends.database",
@@ -107,42 +96,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "_core.wsgi.application"
 
-# from django.urls import reverse_lazy
-# from django.utils.translation import gettext_lazy as _
-
-# UNFOLD = {
-#     "SITE_HEADER": _("Turbo Admin"),
-#     "SITE_TITLE": _("Turbo Admin"),
-#     "SIDEBAR": {
-#         "show_search": True,
-#         "show_all_applications": True,
-#         "navigation": [
-#             {
-#                 "title": _("Navigation"),
-#                 "separator": False,
-#                 "items": [
-#                     {
-#                         "title": _("Users"),
-#                         "icon": "person",
-#                         "link": reverse_lazy("admin:backend_user_changelist"),
-#                     },
-#                     {
-#                         "title": _("Groups"),
-#                         "icon": "label",
-#                         "link": reverse_lazy("admin:auth_group_changelist"),
-#                     },
-#                 ],
-#             },
-#         ],
-#     },
-# }
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": PERSISTENT_STORAGE / "database" / "db.sqlite3",
         "OPTIONS": {
             "transaction_mode": "EXCLUSIVE",
             "timeout": 5,  # seconds
@@ -161,7 +120,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     # {
     #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -183,53 +141,31 @@ AUTHENTICATION_BACKENDS = [
     "social_core.backends.facebook.FacebookOAuth2",
 ]
 
-SOCIAL_AUTH_GITHUB_KEY = github_key
-SOCIAL_AUTH_GITHUB_SECRET = github_secret
-
-SOCIAL_AUTH_FACEBOOK_KEY = facebook_key
-SOCIAL_AUTH_FACEBOOK_SECRET = facebook_secret
-SOCIAL_AUTH_FACEBOOK_APP_NAMESPACE = ""
-
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "America/Chicago"
-
 USE_I18N = True
-
 USE_TZ = True
 
 # ROOT_URLCONF = "_core.urls"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = "static/"
-# STATICFILES_DIRS = (
-#     # BASE_DIR / "_core" / "static",
-#     BASE_DIR / "_core" / "static" / "img",
-#     BASE_DIR / "_core" / "static" / "css",
-#     BASE_DIR / "_core" / "static" / "js",
-# )
-# STATIC_ROOT = BASE_DIR  / "static"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = (BASE_DIR / "assets").resolve()
-print(STATIC_ROOT)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 CACHES = {
     "default": {
         "BACKEND": "diskcache.DjangoCache",
-        "LOCATION": BASE_DIR / "soiled-storage" / "cache",
+        "LOCATION": PERSISTENT_STORAGE / "cache",
         "TIMEOUT": 1800,
         # ^-- Django setting for default timeout of each key.
         "SHARDS": 8,
@@ -240,7 +176,6 @@ CACHES = {
         },
     },
 }
-
 
 TASKS = {
     "default": {
@@ -253,6 +188,5 @@ TASKS = {
 # Add the following lines at the end of the file
 logfire.configure()
 logfire.instrument_django()
-# logfire.instrument_pydantic()
 
 ONEPASS_TOKEN = SecretStr(secret_value=os.getenv("OP_SERVICE_ACCOUNT_TOKEN"))
