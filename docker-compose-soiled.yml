@@ -51,6 +51,6 @@ services:
       replicas: 1
 
 networks:
-  traefik:
-    external:
-      name: traefik-proxy
+  traefik:  
+    name: traefik-proxy
+    external: true
