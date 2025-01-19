@@ -1,6 +1,8 @@
 secrets:
   django_secret_key:
-    file: ./_local_swarm_secrets/django_secret_key
+    externa: true
+  # django_secret_key:
+  #   file: ./_local_swarm_secrets/django_secret_key
 
 services:
   app:
