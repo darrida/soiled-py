@@ -14,7 +14,7 @@ sensors = [
 for _ in range(30):
     for sensor in sensors:
         response = requests.post(
-            "http://localhost:8000/api/soiled/measurement/",
+            "http://127.0.0.1:8000/api/soiled/measurement/",
             headers={'Authorization': 'Bearer supersecret'},
             json={
                 "mac_address": sensor,
@@ -24,7 +24,7 @@ for _ in range(30):
         )
         if response.status_code == 204:
             response = requests.post(
-                "http://localhost:8000/api/soiled/sensor/",
+                "http://127.0.0.1:8000/api/soiled/sensor/",
                 headers={'Authorization': 'Bearer supersecret'},
                 json={"mac_address": sensor},
                 timeout=5

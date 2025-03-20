@@ -39,8 +39,8 @@ SESSION_COOKIE_SECURE = False
 # Application definition
 INSTALLED_APPS = [
     # UNOFFICIAL THIRD PARTY
-    "django_tasks",
-    "django_tasks.backends.database",
+    # "django_tasks",
+    # "django_tasks.backends.database",
     "social_django",
     "django_htmx",
     "ninja",
@@ -103,7 +103,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": PERSISTENT_STORAGE / "database" / "db.sqlite3",
         "OPTIONS": {
-            "transaction_mode": "EXCLUSIVE",
+            "transaction_mode": "IMMEDIATE",
             "timeout": 5,  # seconds
             "init_command": """
                 PRAGMA journal_mode=WAL;

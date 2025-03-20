@@ -27,11 +27,11 @@ dependencies = [
     "fastapi>=0.115.6",
 ]
 
-[project.optional-dependencies]
-tests = [
-  "pytest>=8.3.3",
-  "pytest-django>=4.9.0",
-  "pytest-asyncio>=0.25.0",
+[dependency-groups]
+test = [
+    "pytest>=8.3.3",
+    "pytest-asyncio>=0.25.0",
+    "pytest-django>=4.9.0",
 ]
 
 [build-system]
@@ -46,7 +46,8 @@ line-length = 120
 extend-exclude = [".venv", "*.robot"]
 
 [tool.ruff.lint]
-extend-select = ["S", "I"]  # bandit (S), isort (I)
+extend-select = ["S", "I", "C4"]  # bandit (S), isort (I)
+fixable = ["F401", "I001"]
 
 [tool.ruff.lint.isort]
 extra-standard-library = []
