@@ -4,13 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from zoneinfo import ZoneInfo
 
-from _core.onepass import secret
+from _shared.onepass import secret
 
 from .logic.victor_mouse_trap import VictorApi, VictorAsyncClient
 from .logic.victor_mouse_trap._models import Trap
 
 
-@login_required
+@login_required # type: ignore
 async def get_traps_status(request):
     username = await secret.aget(item="victor", field="username")
     password = await secret.aget(item="victor", field="password")
@@ -36,7 +36,8 @@ async def get_traps_status(request):
     return render(request, "app_traps/hx_traps_widgets.html", context={"traps": data_l})
 
 
-def local_time(datetime_: datetime, output_format: str = "%H:%M", tz: str = "America/Chicago") -> str:
-    # datetime_ = datetime.strptime(timestamp, str_format)
+def local_time(datetime_: datetime | None, output_format: str = "%H:%M", tz: str = "America/Chicago") -> str | None:
+    if not datetime_:
+        return None
     datetime_ = datetime_.astimezone(ZoneInfo(tz))
     return datetime_.strftime(output_format)

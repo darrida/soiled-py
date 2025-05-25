@@ -1,7 +1,7 @@
 # ruff: noqa: S101
 import pytest
 
-from _core.onepass import OnePasswordFieldNotFound, OnePasswordItemNotFound, secret
+from _shared.onepass import OnePasswordFieldNotFound, OnePasswordItemNotFound, secret
 
 
 def test_get_onepass_secret_sync():

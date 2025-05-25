@@ -11,7 +11,7 @@ class AuthBearer(HttpBearer):
             return token
         
 
-api = NinjaAPI(csrf=False, docs=Swagger()) #, docs_decorator=staff_member_required) # auth=[AuthBearer()], 
+api = NinjaAPI(title="Home API", version="0.0.1", csrf=False, docs=Swagger()) #, docs_decorator=staff_member_required) # auth=[AuthBearer()], 
 
 api.add_router("soiled/", soiled_router, tags=["Soiled"])
 

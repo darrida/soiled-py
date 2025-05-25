@@ -16,6 +16,8 @@ from pathlib import Path
 import logfire
 from pydantic import SecretStr
 
+from app_secrets import SECRET_KEY, ONEPASSWORD_TOKEN
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -25,7 +27,7 @@ PERSISTENT_STORAGE = Path().home() / "soiled-storage"
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-bg45soje9%01^7d08n918u)-mnn5&(tv(+3wa67k)wvqr(7!_1"  # noqa: S105
+SECRET_KEY = SECRET_KEY
 
 ASGI_APPLICATION = "_core.asgi.application"
 
@@ -39,17 +41,20 @@ SESSION_COOKIE_SECURE = False
 # Application definition
 INSTALLED_APPS = [
     # UNOFFICIAL THIRD PARTY
-    # "django_tasks",
-    # "django_tasks.backends.database",
-    "social_django",
+    "django_tasks",
+    "django_tasks.backends.database",
+    # "social_django",
     "django_htmx",
     "ninja",
-    'waffle',
+    # 'waffle',
+    "override.apps.BackendSocialAuthConfig",
+    "override.apps.SvcWaffleConfig",
+    "override.apps.BackendAuthConfig",
     # OFFICIAL THIRD PARTY
-    "daphne",
+    # "daphne",
     # BUILT-IN
     "django.contrib.admin",
-    "django.contrib.auth",
+    # "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -57,8 +62,6 @@ INSTALLED_APPS = [
     # local apps
     "app_soiled.apps.AppSoiledConfig",
     "app_traps.apps.AppTrapsConfig",
-    # backends
-    "backend_feature_flags.apps.BackendFeatureFlagsConfig",
 ]
 
 MIDDLEWARE = [
@@ -189,4 +192,4 @@ TASKS = {
 logfire.configure()
 logfire.instrument_django()
 
-ONEPASS_TOKEN = SecretStr(secret_value=os.getenv("OP_SERVICE_ACCOUNT_TOKEN"))
+ONEPASSWORD_TOKEN = ONEPASSWORD_TOKEN

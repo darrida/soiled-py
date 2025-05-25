@@ -8,7 +8,7 @@ from starlette.applications import Starlette
 from starlette.staticfiles import StaticFiles
 
 if True:
-    from _core.asgi import application
+    from _core.asgi import django_asgi_app
 from _core import settings
 
 logger.remove()
@@ -21,7 +21,7 @@ logger.info("Mounting static assets path...")
 app.mount("/static", StaticFiles(directory=settings.STATIC_ROOT, check_dir=True), name="assets")
 
 logger.info("Mounting django/django-ninja application...")
-app.mount("", application, "Django")
+app.mount("", django_asgi_app, "Django")
 
 
 async def main():
