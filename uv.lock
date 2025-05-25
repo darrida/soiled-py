@@ -213,6 +213,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-admin-dracula"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/52/ba/4ca274ce17869144f07b4aa225c2bba1d83e2ea2fea9cc5bb44a063b37e3/django_admin_dracula-0.0.3.tar.gz", hash = "sha256:432da921076fd5bc4d5dce7981bc3b323fdbb2e509bf5987d165a74bcca4b093", size = 1366084, upload_time = "2024-10-31T05:15:24.373Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/fc/244ea2b9894679a54068d9082b44c8be60bcb33a62b0d49086239d459d9c/django_admin_dracula-0.0.3-py3-none-any.whl", hash = "sha256:93fe660c798d31630c6a35b2705fea0f3111d9a6e697836350f714b6b99d5d97", size = 32358, upload_time = "2024-10-31T05:15:22.519Z" },
+]
+
+[[package]]
 name = "django-htmx"
 version = "1.21.0"
 source = { registry = "https://pypi.org/simple" }
@@ -868,6 +880,7 @@ source = { editable = "." }
 dependencies = [
     { name = "diskcache" },
     { name = "django" },
+    { name = "django-admin-dracula" },
     { name = "django-htmx" },
     { name = "django-ninja" },
     { name = "django-tasks" },
@@ -892,6 +905,7 @@ dev = [
 requires-dist = [
     { name = "diskcache", specifier = ">=5.6.3" },
     { name = "django", specifier = ">=5.2.1" },
+    { name = "django-admin-dracula", specifier = ">=0.0.3" },
     { name = "django-htmx", specifier = ">=1.21.0" },
     { name = "django-ninja", specifier = ">=1.4.1" },
     { name = "django-tasks", specifier = ">=0.7.0" },

@@ -138,7 +138,13 @@
 }
 
 #nav-filter:focus {
-    border-color: var(--body-quiet-color);
+    border-color: var(--dracula-green-tame);  /* dracula theme */
+    outline: none;                            /* dracula theme */
+}
+
+/* dracula theme */
+#nav-filter:focus-visible {
+    outline: 1px solid var(--dracula-green-tame);
 }
 
 #nav-filter.no-results {

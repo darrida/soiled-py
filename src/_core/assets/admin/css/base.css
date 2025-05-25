@@ -5,14 +5,40 @@
 /* VARIABLE DEFINITIONS */
 html[data-theme="light"],
 :root {
-    --primary: #79aec8;
-    --secondary: #417690;
-    --accent: #f5dd5d;
+    --dracula-background: #282a36;
+    --dracula-background-light: #353748; /* custom */
+    --dracula-background-dark: #1d1e27;  /* custom */
+    --dracula-current-line: #44475a;
+    --dracula-selection: #44475a;
+    --dracula-foreground: #f8f8f2;
+    --dracula-comment: #6272a4;
+    --dracula-comment-dark: #4d5a83;    /* custom */
+    --dracula-comment-darker: #445075;  /* custom */
+    --dracula-cyan: #8be9fd;
+    --dracula-cyan-light: #d5f7ff;      /* custom */
+    --dracula-green-light: #eaffef;     /* custom */
+    --dracula-green: #50fa7b;
+    --dracula-green-tame: #45de6b;      /* custom */
+    --dracula-orange: #ffb86c;
+    --dracula-pink: #ff79c6;
+    --dracula-pink-dark: #e36cb0;       /* custom */
+    --dracula-pink-light: #ffb0dd;      /* custom */
+    --dracula-purple-light: #fbf9ff;    /* custom */
+    --dracula-purple: #bd93f9;
+    --dracula-purple-darker: #a47fdc;   /* custom */
+    --dracula-red: #ff5555;
+    --dracula-red-darker: #e84c4b;      /* custom */
+    --dracula-yellow: #f1fa8c;
+    --dracula-yellow-light: #fbffcf;    /* custom */
+
+    --primary: var(--dracula-cyan);
+    --secondary: var(--dracula-comment);
+    --accent: var(--dracula-yellow);
     --primary-fg: #fff;
 
-    --body-fg: #333;
+    --body-fg: var(--dracula-current-line);
     --body-bg: #fff;
-    --body-quiet-color: #666;
+    --body-quiet-color: var(--dracula-selection);
     --body-medium-color: #444;
     --body-loud-color: #000;
 
@@ -21,36 +47,37 @@ html[data-theme="light"],
     --header-bg: var(--secondary);
     --header-link-color: var(--primary-fg);
 
-    --breadcrumbs-fg: #c4dce8;
+    --breadcrumbs-fg: var(--dracula-cyan);
     --breadcrumbs-link-fg: var(--body-bg);
-    --breadcrumbs-bg: #264b5d;
+    --breadcrumbs-bg: var(--dracula-comment-dark);
 
-    --link-fg: #417893;
-    --link-hover-color: #036;
+    --link-fg: var(--dracula-comment);
+    --link-hover-color: var(--dracula-comment-dark);
     --link-selected-fg: var(--secondary);
 
     --hairline-color: #e8e8e8;
+    --hairline-color: var(--dracula-cyan-light);
     --border-color: #ccc;
 
-    --error-fg: #ba2121;
+    --error-fg: var(--dracula-red);
 
     --message-success-bg: #dfd;
-    --message-warning-bg: #ffc;
+    --message-warning-bg: var(--dracula-yellow-light);
     --message-error-bg: #ffefef;
 
-    --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
-    --selected-bg: #e4e4e4; /* E.g. selected table cells */
-    --selected-row: #ffc;
+    --darkened-bg: var(--dracula-purple-light); /* A bit darker than --body-bg */
+    --selected-bg: var(--dracula-green-light); /* E.g. selected table cells */
+    --selected-row: var(--dracula-yellow-light);
 
     --button-fg: #fff;
     --button-bg: var(--secondary);
-    --button-hover-bg: #205067;
-    --default-button-bg: #205067;
-    --default-button-hover-bg: var(--secondary);
-    --close-button-bg: #747474;
-    --close-button-hover-bg: #333;
-    --delete-button-bg: #ba2121;
-    --delete-button-hover-bg: #a41515;
+    --button-hover-bg: var(--dracula-comment-dark);
+    --default-button-bg: var(--dracula-purple);
+    --default-button-hover-bg: var(--dracula-purple-darker);
+    --close-button-bg: var(--dracula-purple);
+    --close-button-hover-bg: var(--dracula-purple-darker);
+    --delete-button-bg: var(--dracula-red);
+    --delete-button-hover-bg: var(--dracula-red-darker);
 
     --object-tools-fg: var(--button-fg);
     --object-tools-bg: var(--close-button-bg);
@@ -100,6 +127,11 @@ body {
     font-family: var(--font-family-primary);
     color: var(--body-fg);
     background: var(--body-bg);
+
+    /* dracula theme */
+    ::selection {
+        background: var(--dracula-cyan-light);
+    }
 }
 
 /* LINKS */
@@ -150,6 +182,7 @@ h1 {
     margin: 0 0 20px;
     font-weight: 300;
     font-size: 1.25rem;
+    color: var(--body-quiet-color);
 }
 
 h2 {
@@ -246,7 +279,7 @@ pre.literal-block {
 }
 
 code strong {
-    color: #930;
+    color: var(--dracula-red);  /* dracula theme */
 }
 
 hr {
@@ -511,7 +544,20 @@ Add input:not([type]) to make the CSS stylesheet work the same.
 input:not([type]):focus, input[type=text]:focus, input[type=password]:focus,
 input[type=email]:focus, input[type=url]:focus, input[type=number]:focus,
 input[type=tel]:focus, textarea:focus, select:focus, .vTextField:focus {
-    border-color: var(--body-quiet-color);
+    border-color: var(--dracula-green-tame);
+    outline: none;  /* dracula theme */
+}
+
+/* dracula theme */
+input:not([type]):focus-visible, input[type=text]:focus-visible, input[type=password]:focus-visible,
+input[type=email]:focus-visible, input[type=url]:focus-visible, input[type=number]:focus-visible,
+input[type=tel]:focus-visible, input[type=search]:focus-visible, textarea:focus-visible, select:focus-visible, .vTextField:focus-visible {
+    outline: 1px solid var(--dracula-green-tame);
+}
+
+/* dracula theme */
+input[type=checkbox]:checked {
+    accent-color: var(--dracula-orange);
 }
 
 select {
@@ -757,11 +803,11 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
 }
 
 a.deletelink:link, a.deletelink:visited {
-    color: #CC3434; /* XXX Probably unused? */
+    color: var(--dracula-red); /* XXX Probably unused? */ /* dracula theme */
 }
 
 a.deletelink:focus, a.deletelink:hover {
-    color: #993333; /* XXX Probably unused? */
+    color: var(--dracula-red-darker); /* XXX Probably unused? */ /* dracula theme */
     text-decoration: none;
 }
 

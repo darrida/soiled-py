@@ -32,7 +32,7 @@
     margin: 0 0 10px;
     padding: 8px;
     text-align: center;
-    background: var(--primary);
+    background: var(--dracula-comment);  /* dracula theme */
     color: var(--header-link-color);
     cursor: pointer;
 }
@@ -428,7 +428,7 @@ span.clearable-file-input label {
     font-weight: 700;
     font-size: 0.75rem;
     color: #333;
-    background: var(--accent);
+    background: var(--dracula-yellow-light);  /* dracula theme */
 }
 
 .calendar th {

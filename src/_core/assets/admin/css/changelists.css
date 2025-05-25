@@ -100,7 +100,13 @@
 }
 
 #toolbar #searchbar:focus {
-    border-color: var(--body-quiet-color);
+    border-color: var(--dracula-green);  /* dracula theme */
+    outline: none;                       /* dracula theme */
+}
+
+/* dracula theme */
+#toolbar #searchbar:focus-visible {
+    outline: 1px solid var(--dracula-green);
 }
 
 #toolbar form input[type="submit"] {
@@ -315,7 +321,8 @@
 }
 
 #changelist .actions select:focus {
-    border-color: var(--body-quiet-color);
+    border-color: var(--dracula-green-tame);  /* dracula theme */
+    outline: none;                            /* dracula theme */
 }
 
 #changelist .actions label {

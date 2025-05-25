@@ -41,20 +41,21 @@ SESSION_COOKIE_SECURE = False
 # Application definition
 INSTALLED_APPS = [
     # UNOFFICIAL THIRD PARTY
+    # 'django_admin_dracula',
     "django_tasks",
     "django_tasks.backends.database",
-    # "social_django",
     "django_htmx",
     "ninja",
-    # 'waffle',
-    "override.apps.BackendSocialAuthConfig",
+    'social_django',
+    # third party name overrides
+    # "override.apps.BackendSocialAuthConfig",
     "override.apps.SvcWaffleConfig",
-    "override.apps.BackendAuthConfig",
+    # "override.apps.BackendAuthConfig",
     # OFFICIAL THIRD PARTY
     # "daphne",
     # BUILT-IN
     "django.contrib.admin",
-    # "django.contrib.auth",
+    "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -78,6 +79,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "_core.urls"
+# APPEND_SLASH = True
 
 TEMPLATES = [
     {
@@ -90,8 +92,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect",
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -139,9 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
     "social_core.backends.github.GithubOAuth2",
     "social_core.backends.facebook.FacebookOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 LOGIN_REDIRECT_URL = "/"
@@ -157,7 +159,8 @@ USE_TZ = True
 # ROOT_URLCONF = "_core.urls"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-STATIC_URL = "static/"
+STATIC_URL = "static"
+MEDIA_URL = "media"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = (BASE_DIR / "assets").resolve()
 
@@ -193,3 +196,6 @@ logfire.configure()
 logfire.instrument_django()
 
 ONEPASSWORD_TOKEN = ONEPASSWORD_TOKEN
+
+SOCIAL_AUTH_GITHUB_KEY = "Ov23lirQJAaIE5sVidwj"
+SOCIAL_AUTH_GITHUB_SECRET = "7f8fa0e1b20d7298a8450f3e4ccba8e9761c327f"

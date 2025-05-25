@@ -23,6 +23,7 @@ dependencies = [
     "django-ninja>=1.4.1",
     "starlette>=0.46.2",
     "django-tasks>=0.7.0",
+    "django-admin-dracula>=0.0.3",
 ]
 
 [dependency-groups]

@@ -17,3 +17,8 @@ def get_by_id(request, id: int):
         return Plant.objects.get(id=id)
     except Plant.DoesNotExist:
         return 204
+    
+
+@router.get("", response={200: list[PlantSchema], 204: None})
+def get_all(request):
+    return Plant.objects.all()

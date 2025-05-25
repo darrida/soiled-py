@@ -25,6 +25,11 @@ def get_by_mac_address(request, mac_address: str):
         return Sensor.objects.get(mac_address=mac_address)
     except Sensor.DoesNotExist:
         return 204
+    
+
+@router.get("", response={200: list[SensorSchema], 204: None})
+def get_all(request):
+    return Sensor.objects.all()
 
 
 @router.post("", response={200: SensorSchema})
