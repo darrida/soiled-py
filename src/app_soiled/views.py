@@ -36,22 +36,30 @@ def get_status_table(request):
     plants = Plant.objects.filter(active=True)
     data_l = []
     for plant in plants:
-        measurements = list(Measurement.objects.filter(plant__pk=plant.pk).order_by("-created_at")[:2])
-        if measurements[0].moisture_percent >= measurements[1].moisture_percent:
-            arrow_direction = "up-right"
-            arrow_color = "text-success"
+        data = {}
+        if measurements := list(Measurement.objects.filter(plant__pk=plant.pk).order_by("-created_at")[:2]):
+            if len(measurements) < 2:
+                arrow_direction = "right"
+                arrow_color = "text-info"
+                text_color = "text-info"
+            else:
+                if measurements[0].moisture_percent >= measurements[1].moisture_percent:
+                    arrow_direction = "up-right"
+                    arrow_color = "text-success"
+                else:
+                    arrow_direction = "down-right"
+                    arrow_color = "text-error"
+                text_color = "text-error" if int(measurements[0].moisture_percent) < 80 else "text-success"
+            data = {
+                "name": f"{plant.name} ({plant.location.name})",
+                "moisture_percent": f"{measurements[0].moisture_percent}%",
+                "last_update": local_time(measurements[0].created_at),
+                "text_color": text_color,
+                "arrow_direction": arrow_direction,
+                "arrow_color": arrow_color
+            }
         else:
-            arrow_direction = "down-right"
-            arrow_color = "text-error"
-        text_color = "text-error" if int(measurements[0].moisture_percent) < 80 else "text-success"
-        data = {
-            "name": f"{plant.name} ({plant.location.name})",
-            "moisture_percent": measurements[0].moisture_percent,
-            "last_update": local_time(measurements[0].created_at),
-            "text_color": text_color,
-            "arrow_direction": arrow_direction,
-            "arrow_color": arrow_color
-        }
+            data["name"] = f"{plant.name} (not enough data)"
         data_l.append(data)
 
     return render(request, "app_soiled/hx_plants_table.html", context={"plants": data_l})

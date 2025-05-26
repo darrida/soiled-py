@@ -2,18 +2,20 @@
 
 import logging
 
-from httpx import URL, AsyncClient, Response, codes
+# from httpx import URL, AsyncClient, Response, codes
+import requests
+from requests import Response, Session
 
 log = logging.getLogger(__name__)
 
-DEFAULT_BASE_URL = URL("https://www.victorsmartkill.com")
+DEFAULT_BASE_URL = "https://www.victorsmartkill.com"
 
 
 class InvalidCredentialsError(Exception):
     """Invalid authentication credentials."""
 
 
-class VictorAsyncClient(AsyncClient):
+class VictorClient(Session):
     """An asynchronous HTTP client to Victor Smart Kill API."""
 
     def __init__(self, username: str, password: str, **kwargs) -> None:
@@ -32,8 +34,7 @@ class VictorAsyncClient(AsyncClient):
         if not password:
             raise ValueError("Password is required.")
 
-        if self.base_url == URL():
-            self.base_url = DEFAULT_BASE_URL
+        self.base_url = DEFAULT_BASE_URL
 
         self._credentials = {"password": password, "username": username}
         self._token = None
@@ -43,17 +44,15 @@ class VictorAsyncClient(AsyncClient):
         """Boolean that indicates whether this session has an token or not."""
         return self._token is not None
 
-    async def fetch_token(self) -> None:
+    def fetch_token(self) -> None:
         """Fetch token and store in client."""
         self._token = None
 
-        response = await super().request(
-            "POST",
-            "api-token-auth/",
+        response = requests.post(f"{DEFAULT_BASE_URL}/api-token-auth/",
             json=self._credentials,
         )
 
-        if response.status_code == codes.BAD_REQUEST:
+        if response.status_code == 400:
             if response.content.find(b"credentials") != -1:
                 log.debug("Credentials error: %s", str(response.content))
                 raise InvalidCredentialsError(response.content)
@@ -67,21 +66,22 @@ class VictorAsyncClient(AsyncClient):
         else:
             raise Exception("Unexpected response from token endpoind")
 
-    async def request(
+    def request(
         self,
         *args,
         **kwargs,
     ) -> Response:
         """Intercept all requests and add token. Fetches token if needed."""
-        return await self._request(True, *args, **kwargs)
+        return self._request(True, *args, **kwargs)
 
-    # pylint: disable=R0913
-    async def _request(
-        self, retry_unauthorized, method, url, data=None, headers=None, **kwargs
+    def _request(
+        self, retry_unauthorized: bool, method: str, url: str, data: dict = None, headers: dict = None, **kwargs
     ) -> Response:
         if not self.has_token:
             log.info("Token is missing. Fetch token.")
-            await self.fetch_token()
+            self.fetch_token()
+
+        url = f"{DEFAULT_BASE_URL}/{url}"
 
         if not headers:
             request_headers = {}
@@ -96,14 +96,14 @@ class VictorAsyncClient(AsyncClient):
             log.debug("Supplying headers %s and data %s.", request_headers.keys(), data)
             log.debug("Passing through key word arguments %s.", kwargs)
 
-        response = await super().request(
+        response = super().request(
             method, url, headers=request_headers, data=data, **kwargs
         )
 
-        if retry_unauthorized and response.status_code == codes.UNAUTHORIZED:
+        if retry_unauthorized and response.status_code == 401:
             log.info("Unauthorized response code. Fetch token and retry.")
-            await self.fetch_token()
-            response = await self._request(
+            self.fetch_token()
+            response = self._request(
                 False, method, url, data=data, headers=headers, **kwargs
             )
 

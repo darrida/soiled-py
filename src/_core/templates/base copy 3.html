@@ -27,7 +27,7 @@
 		<input id="my-drawer" type="checkbox" class="drawer-toggle" />
 		<!-- content -->
 		<main class="drawer-content">
-			<div class="grid grid-cols-12 grid-rows-[max-content] gap-y-12 p-4 lg:gap-x-12 lg:p-10">
+			<div class="grid grid-cols-12 grid-rows-[min-content] gap-y-12 p-4 lg:gap-x-12 lg:p-10">
 				<!-- header -->
 				<header class="col-span-12 flex items-center gap-2 lg:gap-4">
 					<label for="my-drawer" class="btn btn-square btn-ghost drawer-button lg:hidden">
@@ -40,14 +40,12 @@
 				</header>
 				<!-- /header -->
 
-				<!-- card -->
+				<!-- stats -->
 				<section class="stats stats-vertical col-span-12 w-full shadow-sm xl:stats-horizontal xl:col-span-3">
 					<div hx-get="{% url 'hx_traps_widgets' %}" hx-trigger="load" hx-swap="inner">
 						<span id="trap-widget" class="loading loading-dots loading-lg"></span>
 					</div>
 				</section>
-				<!-- /card -->
-				
 				<!-- card -->
 				<section class="card col-span-12 overflow-hidden bg-base-100 shadow-sm xl:col-span-6">
 					<div hx-get="{% url 'hx_plants_table' %}" hx-trigger="load" hx-swap="inner">
@@ -55,7 +53,6 @@
 					</div>
 				</section> 
 				<!-- /card -->
-				
 				<!-- card -->
 				<section class="card col-span-12 bg-base-100 shadow-sm xl:col-span-3">
 					<div class="p-6 pb-0 text-center text-xs font-bold text-base-content/60">
